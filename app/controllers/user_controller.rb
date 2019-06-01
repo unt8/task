@@ -11,6 +11,8 @@ class UserController < ApplicationController
 
   def index
     @client_id = CLIENT_ID
+
+    @users = User.all
   end
 
   def callback
