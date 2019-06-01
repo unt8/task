@@ -57,6 +57,7 @@ class UserController < ApplicationController
 
 
 
+
   def add_snippets
     out = ''
 
@@ -65,10 +66,13 @@ class UserController < ApplicationController
     out += commit_and_push
     remove_repo
 
-    render html: out
+    flash.notice = out
+
+    redirect_to :action => :index
   end
 
 
+  protected
   def clone_repo
     cmd = "cd #{REPO_PATH}; "
 

@@ -1,7 +1,9 @@
 <div class="card">
   <div class="card-body">
 
-    <a href="https://github.com/login/oauth/authorize?scope=user%20public_repo&client_id=<%= @client_id %>">Login with Github</a>
+    <a class="btn btn-success" href="https://github.com/login/oauth/authorize?scope=user%20public_repo&client_id=<%= @client_id %>">Login with Github</a>
+
+    <a class="btn btn-info" href="<%= user_add_snippets_path %>">Add snippets</a>
 
   </div>
 </div>
@@ -10,6 +12,7 @@
 
 <div class="card">
   <div class="card-body">
+
     <h3>Users</h3>
     <table class="table table-bordered table-condensed">
       <thead>
