@@ -1,2 +1,18 @@
 http https://api.github.com/user  User-Agent:Bacon/1.0  'Authorization: token c18499bfac5621d92610704c49df32d44c1031c6'
 http https://api.github.com/user  'Authorization: token c18499bfac5621d92610704c49df32d44c1031c6'  -v
+
+
+git clone https://unt:79f087be18e5eff590c17f2d5fdf83707091281c@github.com/unt8/plugin.git --branch=gh-pages gh-pages
+
+git clone https://unt:79f087be18e5eff590c17f2d5fdf83707091281c@github.com/unt8/plugin.git --branch=gh-pages gh-pages
+
+git add index.html
+
+git commit -m "Add snippet to index.html"
+
+git push origin master
+
+{"access_token":"79f087be18e5eff590c17f2d5fdf83707091281c","token_type":"bearer","scope":"public_repo,user"}
+
+
+<script src="https://www.powr.io/powr.js"></script>

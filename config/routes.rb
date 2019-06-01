@@ -5,4 +5,6 @@ Rails.application.routes.draw do
 
   get '/user/callback', to: 'user#callback'
   get '/user/test_token', to: 'user#test_token'
+  get '/user/add_snippet', to: 'user#add_snippet'
+  get '/user/test_parse', to: 'user#test_parse'
 end
