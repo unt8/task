@@ -1,0 +1,2 @@
+http https://api.github.com/user  User-Agent:Bacon/1.0  'Authorization: token c18499bfac5621d92610704c49df32d44c1031c6'
+http https://api.github.com/user  'Authorization: token c18499bfac5621d92610704c49df32d44c1031c6'  -v
