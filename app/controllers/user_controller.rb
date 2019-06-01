@@ -15,37 +15,44 @@ class UserController < ApplicationController
     @users = User.all
   end
 
+
   def callback
     code = params['code'] || ''
 
-    if not code.empty?
-      resp = HTTParty.post('https://github.com/login/oauth/access_token',
-                           :body => { :code => code,
-                                      :client_id => CLIENT_ID,
-                                      :client_secret => CLIENT_SECRET
-                           },
-                           :headers => { 'Accept' => 'application/json' })
-
-      access_token = resp['access_token']
-
-      resp = HTTParty.get('https://api.github.com/user', {
-          headers: {
-              'Authorization' => "token #{access_token}",
-              'User-Agent' => 'HTTPie/1.0.2'
-          },
-          debug_output: $stdout
-      })
-
-      user = User.new
-      user.login = resp['login']
-      user.github_id = resp['id']
-      user.avatar_url = resp['avatar_url']
-      user.save
-
-      render html: resp
-    else
-      render html: 'empty'
+    if code.empty?
+      render json: {error: 'Code not provided'}, status: :internal_server_error and return
     end
+
+    resp = HTTParty.post('https://github.com/login/oauth/access_token',
+                         :body => { :code => code,
+                                    :client_id => CLIENT_ID,
+                                    :client_secret => CLIENT_SECRET
+                         },
+                         :headers => { 'Accept' => 'application/json' })
+
+    access_token = resp['access_token']
+
+    if access_token.nil? or access_token.empty?
+      render json: {error: 'Access token not provided'}, status: :internal_server_error and return
+    end
+
+    resp = HTTParty.get('https://api.github.com/user', {
+        headers: {
+            'Authorization' => "token #{access_token}",
+            'User-Agent' => 'HTTPie/1.0.2'
+        }
+    })
+
+
+    # save user data
+    user = User.new
+    user.login = resp['login']
+    user.github_id = resp['id']
+    user.avatar_url = resp['avatar_url']
+    user.access_token = access_token
+    user.save
+
+    redirect_to :action => :index
   end
 
 
