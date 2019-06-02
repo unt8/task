@@ -16,3 +16,5 @@ git push origin master
 
 
 <script src="https://www.powr.io/powr.js"></script>
+
+heroku config:set RAILS_MASTER_KEY=<master-key>
