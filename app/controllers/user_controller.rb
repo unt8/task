@@ -5,8 +5,8 @@ class UserController < ApplicationController
   include HTTParty
   debug_output $stderr
 
-  CLIENT_ID = 'f5ed8373d801d99bd95b'
-  CLIENT_SECRET = '6681b80366dbd320771cfe2325471148ddf20220'
+  CLIENT_ID = Rails.application.credentials[Rails.env.to_sym][:github][:client_id]
+  CLIENT_SECRET = Rails.application.credentials[Rails.env.to_sym][:github][:client_secret]
   GITHUB_USER = 'unt8'
   REPO_PATH = "#{Rails.root}/public/plugin"
 
