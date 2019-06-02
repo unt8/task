@@ -1,24 +1,37 @@
-# README
+### Login with github
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Two OAuth Applications were registered (for
+ "development" and "production") 
 
-Things you may want to cover:
+* Clicking "Login with Github" link navigates user to 
+Github OAuth page (https://github.com/login/oauth/authorize) passing parameters: 
+    * `scope=user,public_repo`
+    * `client_id`
+    
+* After user grants permission, github redirects to preconfigured "Redirect URL"
+ with "Authorization Code" parameter 
 
-* Ruby version
+* Server exchanges provided code with "access_token" by sending POST
+request to "https://api.github.com/user" with params:
+    * `code`
+    * `client_id`
+    * `client_secret`
+    
+* After obtaining "access_token", server can request user data 
+from "https://api.github.com/user" and appending 
+ `Authorization: token <access_token>` header
+ 
 
-* System dependencies
 
-* Configuration
+### Modifying github repo using "access_token"
 
-* Database creation
+Clicking "Add snippets" action which appends code snippets 
 
-* Database initialization
+* Clone the repo containing "index.html" file
+ into local directory `git clone https://unt8:<access_token>@github.com/unt8/plugin.git `
 
-* How to run the test suite
+* Insert code snippets into `<head>` and `<body>` sections of index.html file (using "nokogiri" library)
 
-* Services (job queues, cache servers, search engines, etc.)
+* Commit and push changes 
+    
 
-* Deployment instructions
-
-* ...
