@@ -7,6 +7,7 @@ class UserController < ApplicationController
 
   CLIENT_ID = 'f5ed8373d801d99bd95b'
   CLIENT_SECRET = '6681b80366dbd320771cfe2325471148ddf20220'
+  GITHUB_USER = 'unt8'
   REPO_PATH = "#{Rails.root}/public/plugin"
 
   def index
@@ -74,10 +75,16 @@ class UserController < ApplicationController
 
   protected
   def clone_repo
+    user = User.find_by(login: GITHUB_USER)
+
+    if user.nil?
+      render json: {error: 'User not found'}, status: :not_found and return
+    end
+
     cmd = "cd #{REPO_PATH}; "
 
     if not File.directory?(REPO_PATH)
-      cmd += "git clone https://unt8:79f087be18e5eff590c17f2d5fdf83707091281c@github.com/unt8/plugin.git #{REPO_PATH} 2>&1; "
+      cmd += "git clone https://#{GITHUB_USER}:#{user.access_token}@github.com/unt8/plugin.git #{REPO_PATH} 2>&1; "
     end
 
     out = `#{cmd}`
